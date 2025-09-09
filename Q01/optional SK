@@ -1,0 +1,43 @@
+# runner.py
+import subprocess, sys, pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parents[1] / "src"
+FILES = [
+    "q01_oop_book_basics.py",
+    "q02_oop_encapsulation.py",
+    "q03_oop_inheritance.py",
+    "q04_oop_polymorphism.py",
+    "q05_oop_all_in_one.py",
+    "q06_requests_get.py",
+    "q07_requests_get_params.py",
+    "q08_requests_post.py",
+    "q09_requests_put_delete.py",
+    "q10_http_status_classifier.py",
+    "q11_fetch_with_status_handling.py",
+    "q12_cli_http_client.py",
+]
+
+failures = []
+
+for f in FILES:
+    print(f"\n=== Running {f} ===")
+    p = subprocess.run([sys.executable, str(ROOT / f)], capture_output=True, text=True)
+    
+    if p.stdout.strip():
+        print("STDOUT:\n", p.stdout)
+    if p.stderr.strip():
+        print("STDERR:\n", p.stderr)
+    
+    if p.returncode != 0:
+        print(f"❌ Failed: {f} (exit code {p.returncode})")
+        failures.append(f)
+    else:
+        print(f"✅ Success: {f}")
+
+if failures:
+    print("\nSome files failed:")
+    for f in failures:
+        print(" -", f)
+    sys.exit(1)
+else:
+    print("\nAll files ran successfully ✅")
