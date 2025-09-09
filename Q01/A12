@@ -1,0 +1,63 @@
+# q12_cli_http_client.py
+
+# TODO:
+# Build a tiny CLI:
+# Usage:
+#   python q12_cli_http_client.py GET https://jsonplaceholder.typicode.com/posts/1
+#   python q12_cli_http_client.py POST https://jsonplaceholder.typicode.com/posts '{"title":"x","body":"y","userId":1}'
+# Requirements:
+# - Accept method in {GET, POST, PUT, DELETE}
+# - Optional JSON body for POST/PUT (as a raw JSON string argument)
+# - Print status code and JSON (if any) or text.
+# - Handle invalid method and JSON errors gracefully.
+
+import sys
+import json
+import requests
+
+def main(argv):
+    if len(argv) < 2:
+        print("Usage: python q12_cli_http_client.py METHOD URL [JSON_BODY]")
+        return
+
+    method = argv[0].upper()
+    url = argv[1]
+    body = None
+
+    if method in {"POST", "PUT"} and len(argv) >= 3:
+        try:
+            body = json.loads(argv[2])
+        except json.JSONDecodeError as e:
+            print(f"Invalid JSON body: {e}")
+            return
+
+    if method not in {"GET", "POST", "PUT", "DELETE"}:
+        print(f"Invalid method: {method}")
+        return
+
+    try:
+        if method == "GET":
+            response = requests.get(url)
+        elif method == "POST":
+            response = requests.post(url, json=body)
+        elif method == "PUT":
+            response = requests.put(url, json=body)
+        elif method == "DELETE":
+            response = requests.delete(url)
+        else:
+            print(f"Unsupported method: {method}")
+            return
+
+        print("Status Code:", response.status_code)
+        try:
+            data = response.json()
+            print("Response JSON:", json.dumps(data, indent=2))
+        except ValueError:
+            print("Response Text:", response.text)
+
+    except requests.exceptions.RequestException as e:
+        print("Request failed:", e)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
