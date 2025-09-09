@@ -1,0 +1,16 @@
+# TODO:
+# Create subclass EBook(Book) with extra attribute file_size (MB: float|int)
+# Override get_details to include file_size, e.g., "... , File Size: 2.5MB"
+# Instantiate EBook and print details + discounted price.
+
+class Book:
+    # minimal Book as needed
+    pass
+
+class EBook(Book):
+    # your code here
+    pass
+
+if __name__ == "__main__":
+    # demo
+    pass
