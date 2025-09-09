@@ -1,0 +1,44 @@
+# q02_oop_encapsulation.py
+
+# TODO:
+# Extend Book with a "private" discount attribute _discount (default=0.1)
+# Add getter/setter for discount with validation (0.0 <= discount <= 0.9)
+# Add method get_price_after_discount() -> price*(1-discount)
+# Demonstrate setting discount via setter and print the discounted price.
+
+class Book:
+    def __init__(self, title: str, author: str, price: float):
+        self.title = title
+        self.author = author
+        self.price = price
+        self._discount = 0.1  # private attribute with default 10%
+
+    # getter
+    def get_discount(self) -> float:
+        return self._discount
+
+    # setter with validation
+    def set_discount(self, value: float):
+        if 0.0 <= value <= 0.9:
+            self._discount = value
+        else:
+            raise ValueError("Discount must be between 0.0 and 0.9")
+
+    def get_price_after_discount(self) -> float:
+        return self.price * (1 - self._discount)
+
+    def get_details(self) -> str:
+        return f"Title: {self.title}, Author: {self.author}, Price: {self.price}"
+
+
+if __name__ == "__main__":
+    # demo
+    book = Book("Deep Work", "Cal Newport", 500.0)
+    print(book.get_details())
+
+    # print default discount price
+    print("Default discounted price:", book.get_price_after_discount())
+
+    # set new discount
+    book.set_discount(0.25)
+    print("New discounted price:", book.get_price_after_discount())
