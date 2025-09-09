@@ -1,0 +1,40 @@
+# TODO:
+# 1) Define class Book with attributes: title, author, price
+# 2) Implement method get_details(self) -> "Title: <...>, Author: <...>, Price: <...>"
+# 3) Create 3 Book instances and print their details using get_details()
+
+class Book:
+    # your code here
+    pass
+
+if __name__ == "__main__":
+    # your demo code here
+    pass
+
+# q01_oop_book_basics.py
+
+# TODO:
+# 1) Define class Book with attributes: title, author, price
+# 2) Implement method get_details(self) -> "Title: <...>, Author: <...>, Price: <...>"
+# 3) Create 3 Book instances and print their details using get_details()
+
+class Book:
+    def __init__(self, title: str, author: str, price: float):
+        self.title = title
+        self.author = author
+        self.price = price
+
+    def get_details(self) -> str:
+        return f"Title: {self.title}, Author: {self.author}, Price: ${self.price:.2f}"
+
+
+if __name__ == "__main__":
+    # Create 3 book instances
+    book1 = Book("The Alchemist", "Paulo Coelho", 299.0)
+    book2 = Book("Atomic Habits", "James Clear", 499.0)
+    book3 = Book("Clean Code", "Robert C. Martin", 899.0)
+
+    # Print their details
+    print(book1.get_details())
+    print(book2.get_details())
+    print(book3.get_details())
