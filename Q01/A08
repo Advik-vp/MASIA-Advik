@@ -1,0 +1,31 @@
+# q08_requests_post.py
+
+# TODO:
+# 1) POST https://jsonplaceholder.typicode.com/posts
+#    body: {"title": "OOPs Assignment", "body": "Learning Python requests", "userId": 101}
+# 2) Print status_code and response JSON (expect an "id" returned by the fake API).
+
+import requests
+import json
+
+def main():
+    url = "https://jsonplaceholder.typicode.com/posts"
+    payload = {
+        "title": "OOPs Assignment",
+        "body": "Learning Python requests",
+        "userId": 101
+    }
+
+    response = requests.post(url, json=payload)
+
+    print("Status Code:", response.status_code)
+    try:
+        data = response.json()
+        print("Response JSON:", json.dumps(data, indent=2))
+    except ValueError:
+        print("Response is not JSON:", response.text)
+
+
+if __name__ == "__main__":
+    main()
+
