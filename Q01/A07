@@ -1,0 +1,26 @@
+# q07_requests_get_params.py
+
+# TODO:
+# 1) GET https://jsonplaceholder.typicode.com/comments with params: postId=1
+# 2) Print the length of results and print first 2 items (pretty as JSON).
+
+import requests
+import json
+
+def main():
+    url = "https://jsonplaceholder.typicode.com/comments"
+    params = {"postId": 1}
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        print("Number of comments:", len(data))
+        print("\nFirst 2 comments:")
+        print(json.dumps(data[:2], indent=2))
+    else:
+        print("Request failed with status code:", response.status_code)
+
+
+if __name__ == "__main__":
+    main()
+
